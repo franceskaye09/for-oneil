@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dearest, Oneil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Gaegu", "Comic Sans MS", "Chalkboard SE", cursive;
+    min-height: 100vh;
+    background: #fff4f1;
+    background-image: radial-gradient(#ffd6dc 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #5b4a4a;
+    overflow-x: hidden;
+  }
+
+  /* ---------- envelope ---------- */
+  .env {
+    position: relative;
+    width: 180px; height: 120px;
+    background: #ffc9d2;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 10px 0 #f3aebb, 0 18px 30px rgba(240,150,170,.35);
+    animation: wiggle 2.6s ease-in-out infinite;
+    transition: transform .5s ease, opacity .5s ease;
+  }
+  .env::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: #ffb3c1;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    border-radius: 14px 14px 0 0;
+  }
+  .env .heart {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -38%);
+    font-size: 30px;
+    color: #ff6f8e;
+  }
+  .env .label {
+    position: absolute;
+    top: 140px; left: -30px; right: -30px;
+    text-align: center;
+    font-size: 22px;
+    color: #e0899a;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+  }
+  .env.gone { transform: scale(.6); opacity: 0; pointer-events: none; animation: none; }
+
+  /* ---------- letter card ---------- */
+  .card {
+    position: absolute;
+    width: min(88vw, 400px);
+    background: #fffdfb;
+    border-radius: 26px;
+    padding: 46px 32px 34px;
+    box-shadow: 0 8px 0 #ffe1e6, 0 20px 40px rgba(240,150,170,.25);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(24px) scale(.96);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2,1.4,.4,1);
+    pointer-events: none;
+  }
+  .card.show { opacity: 1; transform: none; pointer-events: auto; }
+  .card::after {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 2px dashed #ffd3da;
+    border-radius: 18px;
+    pointer-events: none;
+  }
+
+  /* little sticker on top */
+  .sticker {
+    position: absolute;
+    top: -26px; left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    width: 56px; height: 56px;
+    background: #ff8fa6;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 10px rgba(240,120,150,.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: #fff;
+    z-index: 2;
+  }
+
+  .greet {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff6f8e;
+    margin-bottom: 18px;
+  }
+  .msg p {
+    font-size: 23px;
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+  .sign {
+    margin-top: 22px;
+    font-size: 24px;
+    color: #e0899a;
+  }
+  .name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff6f8e;
+  }
+
+  .deco { position: absolute; font-size: 18px; color: #ffb3c1; }
+  .d1 { top: 22px; left: 26px; transform: rotate(-15deg); }
+  .d2 { top: 22px; right: 26px; transform: rotate(15deg); }
+  .d3 { bottom: 20px; left: 28px; }
+  .d4 { bottom: 20px; right: 28px; }
+
+  .fade { opacity: 0; transform: translateY(6px); transition: opacity .6s ease, transform .6s ease; }
+  .fade.on { opacity: 1; transform: none; }
+
+  /* hearts popping */
+  .pop {
+    position: fixed;
+    pointer-events: none;
+    color: #ff8fa6;
+    animation: pop 1.6s ease-out forwards;
+  }
+  @keyframes pop {
+    0% { transform: translate(0,0) scale(.4); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="env" id="env">
+  <span class="heart">♥</span>
+  <div class="label">for Oneil ♡ tap me</div>
+</div>
+
+<div class="card" id="card">
+  <div class="sticker">♥</div>
+  <span class="deco d1">✿</span>
+  <span class="deco d2">✦</span>
+  <span class="deco d3">♡</span>
+  <span class="deco d4">✿</span>
+
+  <div class="greet fade">My dearest, Oneil,</div>
+
+  <div class="msg">
+    <p class="fade">Whenever you feel like God isn't there, always remember that the teacher was quiet during the test.</p>
+    <p class="fade">And during the test, the teacher never gave you the answer; the teacher gave you instructions on how to get the answer.</p>
+  </div>
+
+  <div class="sign fade">aibooo</div>
+  <div class="name fade">— Kaye</div>
+</div>
+
+<script>
+  const env = document.getElementById('env');
+  const card = document.getElementById('card');
+
+  function burst(x, y) {
+    for (let i = 0; i < 14; i++) {
+      const h = document.createElement('div');
+      h.className = 'pop';
+      h.textContent = i % 3 ? '♥' : '♡';
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      h.style.fontSize = (14 + Math.random() * 14) + 'px';
+      const a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 120;
+      h.style.setProperty('--x', Math.cos(a) * d + 'px');
+      h.style.setProperty('--y', Math.sin(a) * d + 'px');
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1700);
+    }
+  }
+
+  env.addEventListener('click', (e) => {
+    const r = env.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2);
+    env.classList.add('gone');
+    setTimeout(() => {
+      card.classList.add('show');
+      card.querySelectorAll('.fade').forEach((el, i) =>
+        setTimeout(() => el.classList.add('on'), 400 + i * 700));
+    }, 450);
+  });
+
+  // tap the card for more hearts
+  card.addEventListener('click', (e) => burst(e.clientX, e.clientY));
+</script>
+</body>
+</html>
